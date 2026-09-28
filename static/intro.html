@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - AI Audio Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css?v=1.1">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 60px 40px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 100px 24px 40px;
+            }
+        }
+
+        .about-section {
+            margin-bottom: 80px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .architecture-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .mermaid {
+            background: transparent;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .cta-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .grid-val {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-val {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode" data-theme="dark">
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <!-- 1. Logo Section -->
+            <div style="display: flex; align-items: center;">
+                <a href="https://yinchenghou.com/" class="yh-logo">YH</a>
+                <div class="logo">AI Audio Guide</div>
+                <a href="/" class="nav-link"
+                    style="margin-left: 20px; border-color: var(--accent); color: var(--accent);">Demo</a>
+            </div>
+
+            <!-- 3. Actions -->
+            <div class="nav-controls" style="display: flex; align-items: center; gap: 15px;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Sidebar -->
+    <aside class="progress-sidebar">
+        <div class="sidebar-track"></div>
+        <div class="step active" data-step="1">
+            <div class="dot"></div>
+            <span class="step-label">Overview</span>
+        </div>
+        <div class="step" data-step="2">
+            <div class="dot"></div>
+            <span class="step-label">Architecture</span>
+        </div>
+        <div class="step" data-step="3">
+            <div class="dot"></div>
+            <span class="step-label">Business</span>
+        </div>
+        <div class="step" data-step="4">
+            <div class="dot"></div>
+            <span class="step-label">Technical</span>
+        </div>
+    </aside>
+
+    <div class="about-container">
+        <section class="about-section" id="section-1">
+            <h1>Expert AI Tour Guide Implementation</h1>
+            <p>This project demonstrates an end-to-end integration of Large Language Models (LLM) and high-fidelity
+                Neural Text-to-Speech (TTS) to provide a localized, on-demand tour experience.</p>
+        </section>
+
+        <section class="about-section" id="section-2">
+            <h2>1. System Architecture</h2>
+            <div class="architecture-card">
+                <p>The system utilizes a decoupled architecture to separate content generation from audio synthesis,
+                    ensuring low latency and high reliability.</p>
+                <div class="mermaid" data-diagram="graph TB
+    subgraph Client[&quot;Client (Browser)&quot;]
+        HTML[HTML/CSS<br/>Glassmorphism]
+        JS[JavaScript<br/>Vanilla]
+        WSA[Web Speech API<br/>Audio Playback]
+    end
+    
+    subgraph Backend[&quot;Backend (FastAPI Server)&quot;]
+        API[API Endpoints<br/>GET /<br/>GET /intro.html<br/>POST /api/generate-tour]
+        AI[AI Orchestration Layer<br/>1. Planner: Gemini 2.0 Flash<br/>2. Content: DeepSeek V3]
+        TTS[TTS Engine: Edge TTS<br/>Voice: en-US-GuyNeural<br/>Output: MP3]
+    end
+    
+    Storage[Static File Storage<br/>/static/assets/audio/]
+    External[External Services<br/>OpenRouter API<br/>- Gemini 2.0 Flash<br/>- DeepSeek V3]
+    
+    Client -->|HTTPS| API
+    API --> AI
+    AI --> TTS
+    TTS --> Storage
+    AI -->|API Calls| External
+    Storage -.->|Audio URL| Client
+    
+    style Client fill:#1a1a2e,stroke:#16213e,stroke-width:2px,color:#fff
+    style Backend fill:#0f3460,stroke:#16213e,stroke-width:2px,color:#fff
+    style Storage fill:#16213e,stroke:#16213e,stroke-width:2px,color:#fff
+    style External fill:#16213e,stroke:#16213e,stroke-width:2px,color:#fff">
+                    graph TB
+                    subgraph Client["Client (Browser)"]
+                    HTML[HTML/CSS<br />Glassmorphism]
+                    JS[JavaScript<br />Vanilla]
+                    WSA[Web Speech API<br />Audio Playback]
+                    end
+
+                    subgraph Backend["Backend (FastAPI Server)"]
+                    API[API Endpoints<br />GET /<br />GET /intro.html<br />POST /api/generate-tour]
+                    AI[AI Orchestration Layer<br />1. Planner: Gemini 2.0 Flash<br />2. Content: DeepSeek V3]
+                    TTS[TTS Engine: Edge TTS<br />Voice: en-US-GuyNeural<br />Output: MP3]
+                    end
+
+                    Storage[Static File Storage<br />/static/assets/audio/]
+                    External[External Services<br />OpenRouter API<br />- Gemini 2.0<br />- DeepSeek V3]
+
+                    Client -->|HTTPS| API
+                    API --> AI
+                    AI --> TTS
+                    TTS --> Storage
+                    AI -->|API Calls| External
+                    Storage -.->|Audio URL| Client
+
+                    style Client fill:#1a1a2e,stroke:#16213e,stroke-width:2px,color:#fff
+                    style Backend fill:#0f3460,stroke:#16213e,stroke-width:2px,color:#fff
+                    style Storage fill:#16213e,stroke:#16213e,stroke-width:2px,color:#fff
+                    style External fill:#16213e,stroke:#16213e,stroke-width:2px,color:#fff
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="section-3">
+            <h2>2. Commercial Value and Industry Impact</h2>
+            <div class="grid-val">
+                <div class="glass" style="padding: 25px; border-radius: 16px;">
+                    <h3>Addressable Pain Points</h3>
+                    <p>Conventional audio guides are static, multilingual support is often limited, and private guides
+                        are prohibitive in cost. Our solution provides "Guide-as-a-Service," delivering expert-level
+                        knowledge instantly and at zero incremental cost.</p>
+                </div>
+                <div class="glass" style="padding: 25px; border-radius: 16px;">
+                    <h3>Industry Use Cases</h3>
+                    <p>Ideal for boutique hotels providing local experiences, museums digitizing archives, and smart
+                        city infrastructure for interactive urban exploring.</p>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <h3>Expansion Roadmap</h3>
+                <p>Future iterations can integrate GPS geofencing for real-time location triggering, AR overlays for
+                    vision-enhanced narration, and multi-agent systems for "dialogue tours" between historical figures.
+                </p>
+            </div>
+        </section>
+
+        <section class="about-section" id="section-4">
+            <h2>3. Technical Rationale</h2>
+            <h3>Why FastAPI and Prompt Chaining?</h3>
+            <p>FastAPI was selected for its native support for Python's async/await, which is critical when handling I/O
+                bound LLM calls and TTS file operations concurrently. By utilizing prompt chaining, we isolate the
+                "Planning" and "Narration" logic, allowing for higher granularity in output control compared to
+                single-shot models.</p>
+
+            <h3>Comparative Advantage over Open Source</h3>
+            <p>Unlike off-the-shelf wrappers, this architecture focuses on minimum overhead. By using OpenRouter, we
+                maintain model-agonsticism, allowing the backend to switch between Claude-3 or GPT-4o based on latency
+                requirements. The choice of edge-tts provides professional-grade neural voices without the cost or
+                complex licensing of proprietary TTS engines.</p>
+        </section>
+
+        <div class="cta-bottom">
+            <p style="margin-top: 40px; font-size: 0.85rem; opacity: 0.6;">Crafted by Yincheng</p>
+        </div>
+    </div>
+
+    <script src="/static/js/theme.js"></script>
+    <script>
+        // Initial theme setup
+        const initialTheme = document.body.getAttribute('data-theme') || 'dark';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: initialTheme === 'dark' ? 'dark' : 'default'
+        });
+
+        // Dynamic Mermaid theme switching
+        async function updateMermaidTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const mermaidTheme = currentTheme === 'dark' ? 'dark' : 'default';
+
+            const containers = document.querySelectorAll('.mermaid[data-diagram]');
+
+            for (let i = 0; i < containers.length; i++) {
+                const container = containers[i];
+                const definition = container.getAttribute('data-diagram');
+
+                if (definition) {
+                    try {
+                        const id = `mermaid-${i}-${Date.now()}`;
+
+                        // Re-initialize with new theme
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            theme: mermaidTheme
+                        });
+
+                        // Render diagram
+                        const { svg } = await mermaid.render(id, definition);
+                        container.innerHTML = svg;
+                    } catch (error) {
+                        console.error('Mermaid render error:', error);
+                        container.innerHTML = definition;
+                    }
+                }
+            }
+        }
+
+        // Listen for theme changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    updateMermaidTheme();
+                }
+            });
+        });
+        observer.observe(document.body, { attributes: true });
+
+        // Sidebar scroll tracking
+        const sections = document.querySelectorAll('.about-section');
+        const sidebarSteps = document.querySelectorAll('.progress-sidebar .step');
+
+        function updateSidebar() {
+            let currentSection = 1;
+            const scrollPos = window.scrollY + window.innerHeight / 3;
+
+            sections.forEach((section, index) => {
+                if (scrollPos >= section.offsetTop) {
+                    currentSection = index + 1;
+                }
+            });
+
+            sidebarSteps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentSection) step.classList.add('completed');
+                if (index + 1 === currentSection) step.classList.add('active');
+            });
+        }
+
+        window.addEventListener('scroll', updateSidebar);
+        updateSidebar();
+    </script>
+</body>
+
+</html>
