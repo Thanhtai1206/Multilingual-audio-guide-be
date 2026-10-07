@@ -11,56 +11,58 @@ Nhóm chúng tôi chịu trách nhiệm chính trong việc phát triển và v�
 
 ## 📂 Cấu Trúc Thư Mục
 
+```
 multilingual-audio-guide/
 ├── .github/workflows/
-│   ├── ci.yml                  	# [C] lint + test mỗi lần push/PR
-│   └── cd.yml                  	# [C] build Docker image + triển khai
+│   ├── ci.yml                      # [C] lint + test mỗi lần push/PR
+│   └── cd.yml                      # [C] build Docker image + triển khai
 ├── app/
-│   ├── main.py                 	# [A] khởi tạo FastAPI, gắn router
-│   ├── core/                  	 # [C] dùng chung
-│   │   ├── config.py          	 #     đọc biến môi trường (.env)
-│   │   └── exceptions.py       	#     lỗi nghiệp vụ: NotFoundError, ...
-│   ├── models/                	 # [CẢ NHÓM] thực thể nghiệp vụ (Pydantic)
+│   ├── main.py                     # [A] khởi tạo FastAPI, gắn router
+│   ├── core/                       # [C] dùng chung
+│   │   ├── config.py               #     đọc biến môi trường (.env)
+│   │   └── exceptions.py           #     lỗi nghiệp vụ: NotFoundError, ...
+│   ├── models/                     # [CẢ NHÓM] thực thể nghiệp vụ (Pydantic)
 │   │   ├── poi.py
 │   │   ├── translation.py
 │   │   └── language.py
-│   ├── api/                   		 # ===== LỚP 1: Presentation [A] =====
-│   │   ├── deps.py             	#     inject service vào router
-│   │   ├── error_handlers.py  	 #     đổi lỗi nghiệp vụ → HTTP 404/422/...
+│   ├── api/                        # ===== LỚP 1: Presentation [A] =====
+│   │   ├── deps.py                 #     inject service vào router
+│   │   ├── error_handlers.py       #     đổi lỗi nghiệp vụ → HTTP 404/422/...
 │   │   └── v1/
 │   │       ├── router.py
 │   │       ├── pois.py
 │   │       ├── translations.py
 │   │       ├── languages.py
 │   │       └── health.py
-│   ├── schemas/                	# [A] request/response DTO của API
-│   ├── services/               	# ===== LỚP 2: Business Logic [B] =====
+│   ├── schemas/                    # [A] request/response DTO của API
+│   ├── services/                   # ===== LỚP 2: Business Logic [B] =====
 │   │   ├── poi_service.py
 │   │   ├── translation_service.py
 │   │   ├── audio_service.py
-│   │   └── providers/          	#     gọi dịch vụ ngoài
-│   │       ├── translator.py   	#     dịch (LLM/OpenRouter)
-│   │       └── tts.py         	 #     edge-tts → file mp3
-│   ├── repositories/           	# ===== LỚP 3: Data Access [C] =====
+│   │   └── providers/              #     gọi dịch vụ ngoài
+│   │       ├── translator.py       #     dịch (LLM/OpenRouter)
+│   │       └── tts.py              #     edge-tts → file mp3
+│   ├── repositories/               # ===== LỚP 3: Data Access [C] =====
 │   │   ├── poi_repository.py
 │   │   ├── translation_repository.py
 │   │   └── language_repository.py
-│   └── db/                     	# [C]
-│       ├── mongo.py            	#     kết nối MongoDB
-│       ├── indexes.py          	#     tạo index khi khởi động
-│       └── seed.py            	 #     nạp danh sách ngôn ngữ mẫu
+│   └── db/                         # [C]
+│       ├── mongo.py                #     kết nối MongoDB
+│       ├── indexes.py              #     tạo index khi khởi động
+│       └── seed.py                 #     nạp danh sách ngôn ngữ mẫu
 ├── tests/
-│   ├── test_api/              	 # [A] mock Service
-│   ├── test_services/         	 # [B] mock Repository + provider
-│   └── test_repositories/     	 # [C] chạy với MongoDB thật (Docker)
-├── frontend/                  	 # HTML/CSS/JS demo (làm sau, cả nhóm)
-├── storage/audio/             	 # file mp3 sinh ra — phải nằm trong .gitignore
-├── docs/                      	 # sơ đồ kiến trúc, ERD, API, báo cáo
-├── Dockerfile                  	# [C]
-├── docker-compose.yml          # [C] app + MongoDB
+│   ├── test_api/                   # [A] mock Service
+│   ├── test_services/              # [B] mock Repository + provider
+│   └── test_repositories/          # [C] chạy với MongoDB thật (Docker)
+├── frontend/                       # HTML/CSS/JS demo (làm sau, cả nhóm)
+├── storage/audio/                  # file mp3 sinh ra — phải nằm trong .gitignore
+├── docs/                           # sơ đồ kiến trúc, ERD, API, báo cáo
+├── Dockerfile                      # [C]
+├── docker-compose.yml              # [C] app + MongoDB
 ├── requirements.txt
-├── .env.example                	# KHÔNG commit .env thật
+├── .env.example                    # KHÔNG commit .env thật
 └── README.md
+```
 
 
 ## 📂 Cấu Trúc Thư Mục Backend (3 Lớp & CI/CD)
