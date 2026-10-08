@@ -11,7 +11,7 @@ Nhóm chúng tôi chịu trách nhiệm chính trong việc phát triển và v�
 
 ## 📂 Cấu Trúc Thư Mục
 
-```
+```mermaid
 multilingual-audio-guide/
 ├── .github/workflows/
 │   ├── ci.yml                      # [C] lint + test mỗi lần push/PR
