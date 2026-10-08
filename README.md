@@ -72,6 +72,83 @@ multilingual-audio-guide/
 * `.github/workflows`: Chứa các file cấu hình tự động hóa CI/CD (GitHub Actions).
 * `/docs`: Lưu trữ tài liệu thiết kế và báo cáo đồ án của nhóm.
 
+## ERD
+```
+erDiagram
+  USER ||--o{ POI : "tạo"
+  USER ||--o{ PROCESSING_JOB : "kích hoạt"
+  CATEGORY ||--o{ POI : "phân loại"
+  LANGUAGE ||--o{ POI : "ngôn ngữ gốc của"
+  LANGUAGE ||--o{ TRANSLATION : "ngôn ngữ đích của"
+  POI ||--o{ TRANSLATION : "có"
+  TRANSLATION ||--o{ AUDIO_FILE : "được đọc thành"
+  TRANSLATION ||--o{ PROCESSING_JOB : "được theo dõi bởi"
+
+  USER {
+    objectid id PK
+    string username UK
+    string email UK
+    string password_hash
+    string role "admin hoặc editor"
+    boolean is_active
+    datetime created_at
+  }
+  LANGUAGE {
+    string code PK "vi, en, ja, ko"
+    string name
+    string tts_voice
+    boolean is_active
+  }
+  CATEGORY {
+    objectid id PK
+    string name UK
+    string description
+  }
+  POI {
+    objectid id PK
+    string name
+    string source_text
+    string source_lang FK
+    objectid category_id FK
+    objectid created_by FK
+    float latitude
+    float longitude
+    datetime created_at
+    datetime updated_at
+  }
+  TRANSLATION {
+    objectid id PK
+    objectid poi_id FK, UK
+    string lang FK, UK
+    string translated_name
+    string translated_text
+    string status "pending, done, failed"
+    string origin "auto hoặc manual"
+    datetime updated_at
+  }
+  AUDIO_FILE {
+    objectid id PK
+    objectid translation_id FK
+    string voice
+    string file_path
+    string format
+    int duration_sec
+    int size_bytes
+    string status "pending, done, failed"
+    datetime created_at
+  }
+  PROCESSING_JOB {
+    objectid id PK
+    objectid translation_id FK
+    objectid triggered_by FK
+    string job_type "translate hoặc tts"
+    string status "pending, running, done, failed"
+    string error_message
+    datetime started_at
+    datetime finished_at
+  }
+  ```
+
 ## 👥 Thành Viên Nhóm
 * **Trương Công Danh**
 * **Võ Thành Tài**
