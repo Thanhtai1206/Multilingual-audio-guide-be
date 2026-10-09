@@ -1,16 +1,16 @@
+# Chạy đầy đủ backend + MongoDB thật trên máy:  docker compose up --build
 services:
   mongo:
     image: mongo:7
     restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     ports:
-      - "27017:27017"
+      # Máy đã cài MongoDB (Windows service) chiếm cổng 27017 -> mở ra ngoài bằng 27018 để không đụng nhau.
+      # Container api vẫn nối vào mongo:27017 bên trong mạng Docker. Compass: mongodb://localhost:27018
+      - "27018:27017"
     volumes:
       - mongo_data:/data/db
     healthcheck:
-      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -18,16 +18,18 @@ services:
   api:
     build: .
     restart: unless-stopped
-    env_file: .env
-    environment:
-      MONGO_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017
-    ports:
-      - "8000:8000"
     depends_on:
       mongo:
         condition: service_healthy
-    volumes:
-      - ./storage:/code/storage
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB_NAME: audio_guide
+      MEDIA_STORAGE: mongo   # audio lưu trong MongoDB -> chỉ cần giữ volume của mongo
 
 volumes:
   mongo_data:

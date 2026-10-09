@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản trị - Thuyết minh Chùa Linh Ứng</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+<!-- Đăng nhập -->
+<div id="login" class="hidden">
+  <form id="login-form" class="login-box">
+    <h2>Đăng nhập quản trị</h2>
+    <label>Tên đăng nhập<input name="username" autocomplete="username" required></label>
+    <label>Mật khẩu<input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn primary">Đăng nhập</button>
+    <p id="login-msg" class="msg"></p>
+  </form>
+</div>
+
+<!-- Trang quản trị -->
+<div id="shell" class="hidden">
+  <div class="topbar">
+    <b>Quản trị - Thuyết minh Chùa Linh Ứng</b>
+    <span class="user">
+      <span id="user-name"></span> (<span id="user-role"></span>)
+      | <a href="/" target="_blank">App du khách</a>
+      | <a href="/docs" target="_blank">API docs</a>
+      | <a href="#" id="btn-logout">Đăng xuất</a>
+    </span>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div id="nav">
+        <button data-page="dashboard" class="active">Tổng quan</button>
+        <button data-page="pois">Điểm tham quan</button>
+        <button data-page="tours">Lộ trình</button>
+        <button data-page="access">Mã truy cập</button>
+        <button data-page="knowledge">Kiến thức chatbot</button>
+        <button data-page="languages">Ngôn ngữ</button>
+        <button data-page="users" data-admin-only>Tài khoản</button>
+      </div>
+    </div>
+    <div class="main">
+      <h2 id="page-title">Tổng quan</h2>
+      <div id="page" class="page"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Hộp thoại dùng chung -->
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><b id="modal-title"></b><button id="modal-close" class="btn small-btn">Đóng</button></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+<div id="toast" class="toast hidden"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/admin/admin.js"></script>
+</body>
+</html>

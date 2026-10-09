@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thuyết minh Chùa Linh Ứng</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- Màn hình mua vé / nhập mã -->
+<div id="gate" class="hidden">
+  <div class="header">
+    <span class="title" data-i18n="appTitle">Thuyết minh Chùa Linh Ứng</span>
+    <select class="lang-select" title="Language"></select>
+  </div>
+  <div class="gate-body">
+    <p data-i18n="gateIntro">Nghe thuyết minh tự động khi bạn đi tới từng điểm tham quan.</p>
+    <table class="info">
+      <tr><td data-i18n="priceLabel">Giá vé</td><td><b id="price">50.000 đ</b></td></tr>
+      <tr><td data-i18n="durationLabel">Thời gian dùng</td><td><span id="hours">24</span> <span data-i18n="hours">giờ</span></td></tr>
+    </table>
+
+    <fieldset>
+      <legend data-i18n="payOnline">Thanh toán online</legend>
+      <button id="btn-pay-online" class="btn btn-primary" data-i18n="payOnline">Thanh toán online</button>
+    </fieldset>
+
+    <fieldset>
+      <legend data-i18n="haveCode">Đã có mã truy cập</legend>
+      <p class="small" data-i18n="cashHint">Trả tiền mặt tại quầy vé, nhân viên sẽ đưa bạn mã 6 ký tự.</p>
+      <form id="redeem-form">
+        <input id="code-input" maxlength="12" autocomplete="off" placeholder="VD: AB3K9Q">
+        <button type="submit" class="btn" data-i18n="enter">Vào</button>
+      </form>
+    </fieldset>
+
+    <p id="gate-msg" class="msg"></p>
+  </div>
+</div>
+
+<!-- App chính -->
+<div id="app" class="hidden">
+  <div class="header">
+    <span class="title" data-i18n="shortTitle">Chùa Linh Ứng</span>
+    <select class="lang-select" title="Language"></select>
+  </div>
+
+  <div class="tabs">
+    <button data-view="map" class="active" data-i18n="tabMap">Bản đồ</button>
+    <button data-view="list" data-i18n="tabList">Danh sách</button>
+    <button data-view="route" data-i18n="tabRoute">Lộ trình</button>
+    <button data-view="chat" data-i18n="tabChat">Hỏi đáp</button>
+  </div>
+
+  <div id="msg-bar" class="msg-bar hidden"></div>
+
+  <div id="view-map" class="view active">
+    <div class="toolbar">
+      <button id="btn-locate" class="btn" data-i18n="myLocation">Vị trí của tôi</button>
+      <label><input type="checkbox" id="chk-simulate"> <span data-i18n="simulate">Giả lập GPS</span></label>
+      <label><input type="checkbox" id="chk-autoplay" checked> <span data-i18n="auto">Tự phát</span></label>
+      <span id="gps-status" class="small"></span>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <div id="view-list" class="view">
+    <ul id="poi-list" class="plain-list"></ul>
+  </div>
+
+  <div id="view-route" class="view">
+    <div class="pad">
+      <label for="tour-select" data-i18n="chooseTour">Chọn lộ trình</label><br>
+      <select id="tour-select"></select>
+      <button id="btn-recommend" class="btn" data-i18n="suggestRoute">Gợi ý thứ tự đi</button>
+      <p id="route-summary" class="small"></p>
+      <ol id="route-list"></ol>
+    </div>
+  </div>
+
+  <div id="view-chat" class="view">
+    <div id="chat-log" class="chat-log"></div>
+    <form id="chat-form" class="chat-form">
+      <input id="chat-input" maxlength="500" autocomplete="off">
+      <button type="submit" class="btn" data-i18n="send">Gửi</button>
+    </form>
+  </div>
+
+  <!-- Thông tin 1 điểm -->
+  <div id="poi-panel" class="poi-panel hidden">
+    <div class="poi-head">
+      <b id="poi-title"></b>
+      <button id="poi-close" class="btn btn-sm" data-i18n="close">Đóng</button>
+    </div>
+    <div id="poi-meta" class="small"></div>
+    <p id="poi-note" class="note hidden"></p>
+    <audio id="audio" controls preload="none"></audio>
+    <div id="poi-actions"></div>
+    <p id="poi-desc"></p>
+    <!-- Thông tin chi tiết kiểu Google Maps: giờ mở cửa, vé, tiện ích, đông khách -->
+    <div id="poi-details"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
